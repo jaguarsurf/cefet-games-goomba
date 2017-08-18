@@ -5,7 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * A classe principal de uma aplicação LibGDX deve herdar de ApplicationAdapter,
@@ -23,6 +26,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Game extends ApplicationAdapter {
 
     private SpriteBatch batch;
+    private Goomba goomba;
     private Texture[] mapLevelsTextures;
     
     /**
@@ -36,7 +40,10 @@ public class Game extends ApplicationAdapter {
         batch = new SpriteBatch();
         mapLevelsTextures = new Texture[2];
         mapLevelsTextures[0] = new Texture("map-level-1.png");
-
+        mapLevelsTextures[1] = new Texture("map-level-2.png");
+        
+        goomba = new Goomba("goomba-spritesheet.png", 4, 5);
+        goomba.spriteMoveMap(2, 0, 3, 1); // mapeia os movimentos do personagem no sprite
         
         // cor de fundo da tela: branco
         Gdx.gl.glClearColor(1, 1, 1, 1);        
@@ -68,10 +75,13 @@ public class Game extends ApplicationAdapter {
         // que renderizamos
         update(Gdx.graphics.getDeltaTime());
         
+        //player.setPosition(posX, posY);
 
         batch.begin();        
             // desenhos são realizados aqui
             batch.draw(mapLevelsTextures[0], 0, 0);
+            batch.draw(mapLevelsTextures[1], 0, 0);
+            goomba.render(batch);
 
         batch.end();
     }
@@ -87,11 +97,13 @@ public class Game extends ApplicationAdapter {
      * @param delta o tempo que passou desde o último "quadro".
      */
     public void update(float delta) {
+        goomba.incrementTime(delta);
+        
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
             Gdx.app.exit();
         }
 
-        // ...
+        goomba.update();
     }
     
 }
