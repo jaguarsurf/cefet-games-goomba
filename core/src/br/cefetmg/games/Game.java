@@ -5,10 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * A classe principal de uma aplicação LibGDX deve herdar de ApplicationAdapter,
@@ -37,6 +34,8 @@ public class Game extends ApplicationAdapter {
      */
     @Override
     public void create() {
+        Gdx.graphics.setResizable(false);
+        
         batch = new SpriteBatch();
         mapLevelsTextures = new Texture[2];
         mapLevelsTextures[0] = new Texture("map-level-1.png");
